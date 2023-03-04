@@ -12,18 +12,31 @@ public class Plane : MonoBehaviour
 
     GameObject gameManager;
 
+    float distance;
+
+    bool isMissionSuccess = false;
+
 
     void Start()
     {
+        // Get bombing position from gameManager & set up plane
         gameManager = GameObject.Find("GameManager");
         mission = gameManager.GetComponent<BombingSystem>();
-        Debug.Log(mission.targetPosition);
         target = mission.targetPosition;
+        transform.up = target - transform.position;
     }
 
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        transform.up = target - transform.position;
+        // Move plane toward target
+        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        distance = Vector3.Distance(transform.position, target);
+
+        if (distance <= 1 && !isMissionSuccess)
+        {
+            isMissionSuccess = true;
+            mission.SpawnBomb(transform.position);
+        }
+
     }
 }

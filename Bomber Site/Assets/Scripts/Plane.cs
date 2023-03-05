@@ -38,5 +38,9 @@ public class Plane : MonoBehaviour
             mission.SpawnBomb(transform.position);
         }
 
+        if (isMissionSuccess)
+        {
+            Destroy(gameObject, 20f);
+        }
     }
 }

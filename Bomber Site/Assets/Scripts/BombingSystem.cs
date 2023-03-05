@@ -27,8 +27,8 @@ public class BombingSystem : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            targetPosition.z = 0f;
-            Instantiate(plane, transform.position, Quaternion.identity);
+            targetPosition.z = 0f; // ! Dont Touch or bend
+            Instantiate(plane, new Vector3(10f, targetPosition.y, 0f), Quaternion.identity);
         }
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
